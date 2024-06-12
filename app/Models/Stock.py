@@ -2,4 +2,5 @@ import yfinance as yf
 
 
 class Stock:
-    pass
+    def __init__(self, stock_name):
+        self.stock_name = stock_name
