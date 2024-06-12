@@ -300,3 +300,6 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 .idea/workspace.xml
+.idea/StockSonic.iml
+.DS_Store
+app/Models/__pycache__/Stock.cpython-39.pyc
