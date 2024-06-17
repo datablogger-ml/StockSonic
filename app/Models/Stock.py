@@ -22,12 +22,14 @@ class Stock:
 
     def create_rsi_signals(self, timeframe=14):
         """
-        
+
         :param timeframe:
         :return:
         """
         rsi_signal_df = self.ohlc_df.copy()
-        gain_loss = rsi_signal_df["CH_CLOSING_PRICE"] - rsi_signal_df["CH_PREVIOUS_CLS_PRICE"]
+        # Shifting Close by 1 to create Prev closing price column
+        rsi_signal_df['PREV_CLOSE'] = rsi_signal_df['Close'].shift(1)
+        gain_loss = rsi_signal_df["Close"] - rsi_signal_df["PREV_CLOSE"]
         rsi_signal_df.loc[gain_loss >= 0, "GAIN"] = gain_loss
         rsi_signal_df.loc[gain_loss < 0, "LOSS"] = gain_loss
         rsi_signal_df[["GAIN", "LOSS"]] = rsi_signal_df[["GAIN", "LOSS"]].fillna(0)
