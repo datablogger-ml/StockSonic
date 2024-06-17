@@ -20,6 +20,7 @@ class Stock:
         :return:
         """
         self.ohlc_df = yf.download(self.stock_name, start_date, end_date)
+        
         # Formatting Columns as required
         self.ohlc_df.columns = self.ohlc_df.columns.str.upper()
         self.ohlc_df.reset_index(inplace=True)
