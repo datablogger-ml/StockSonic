@@ -7,6 +7,8 @@ class Stock:
         This class is used to fetch stock data from Yahoo Finance API
         :param stock_name: The name of the stock
         """
+        self.shares_held = None
+        self.total_loss_or_gain = None
         self.rsi_signal = None
         self.rsi_df = None
         self.ohlc_df = None
@@ -20,7 +22,7 @@ class Stock:
         :return:
         """
         self.ohlc_df = yf.download(self.stock_name, start_date, end_date)
-        
+
         # Formatting Columns as required
         self.ohlc_df.columns = self.ohlc_df.columns.str.upper()
         self.ohlc_df.reset_index(inplace=True)
@@ -66,3 +68,22 @@ class Stock:
         signals_df['SELL_SIGNAL'] = np.where(signals_df['RSI'] > upper_level, -1, 0)
         self.rsi_signal = signals_df
 
+    def calculate_rsi_trade(self, shares_bought, holding_period=30):
+        """
+        Calculate the total loss or gain based on the number of shares brought, taking into account the buy and sell
+        signals and a minimum holding period of 30 days.
+
+        :param shares_bought: The number of shares bought.
+        :param holding_period: The minimum holding period in days. Default is 30.
+        :return: A tuple containing the total loss or gain and the number of shares held at the end of the holding
+        period.
+        """
+        self.total_loss_or_gain = 0
+        self.shares_held = shares_bought
+
+        for i in range(holding_period, len(self.rsi_df)):
+            if self.rsi_df.loc[i, 'BUY_SIGNAL'] == 1 and self.shares_held == 0:
+                self.shares_held = shares_bought
+            elif self.rsi_df.loc[i, 'SELL_SIGNAL'] == -1 and self.shares_held > 0:
+                self.total_loss_or_gain += self.rsi_df.loc[i, 'CLOSE'] * self.shares_held
+                self.shares_held = 0
