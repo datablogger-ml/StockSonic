@@ -4,8 +4,8 @@ import yfinance as yf
 class Stock:
     def __init__(self, stock_name):
         """
-
-        :param stock_name:
+        This class is used to fetch stock data from Yahoo Finance API
+        :param stock_name: The name of the stock
         """
         self.rsi_df = None
         self.ohlc_df = None
@@ -13,9 +13,9 @@ class Stock:
 
     def fetch_ohlc_data(self, start_date=None, end_date=None):
         """
-
-        :param start_date:
-        :param end_date:
+        Function to fetch stock data from Yahoo Finance API
+        :param start_date: The start date in YYYY-MM-DD
+        :param end_date: The end date in YYYY-MM-DD
         :return:
         """
         self.ohlc_df = yf.download(self.stock_name, start_date, end_date)
@@ -26,8 +26,12 @@ class Stock:
 
     def create_rsi_signals(self, timeframe=14):
         """
+        Calculate the Relative Strength Index (RSI) signals for the given OHLC data.
 
-        :param timeframe:
+        The RSI is a momentum oscillator that measures the speed and change of price movements.
+        It is used to identify overbought and oversold conditions in the market.
+
+        :param timeframe: The number of periods to use for the RSI calculation.
         :return:
         """
         rsi_signal_df = self.ohlc_df.copy(deep=True)

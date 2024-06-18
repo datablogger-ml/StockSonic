@@ -304,3 +304,7 @@ TSWLatexianTemp*
 .DS_Store
 app/Models/__pycache__/Stock.cpython-39.pyc
 app/plots/__pycache__/figures.cpython-39.pyc
+.idea/vcs.xml
+.idea/misc.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/profiles_settings.xml
