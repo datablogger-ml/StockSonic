@@ -303,3 +303,4 @@ TSWLatexianTemp*
 .idea/StockSonic.iml
 .DS_Store
 app/Models/__pycache__/Stock.cpython-39.pyc
+app/plots/__pycache__/figures.cpython-39.pyc

@@ -8,7 +8,6 @@ def chart_rsi(title, df):
     :param df:
     :return:
     """
-    plt.figure()
     fig, ax = plt.subplots()
     ax.set_title(title)
     fig.subplots_adjust(bottom=0.2)

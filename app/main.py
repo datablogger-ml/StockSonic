@@ -1,5 +1,7 @@
-from app.Models.Stock import Stock
 from datetime import datetime, timedelta
+
+from app.Models.Stock import Stock
+from app.plots.figures import chart_rsi
 
 
 if __name__ == "__main__":
@@ -24,5 +26,5 @@ if __name__ == "__main__":
     my_stock.create_rsi_signals(rsi_timeframe)
     print(my_stock.rsi_df)
     # Charting RSI
-    my_stock.chart_rsi('RSI', my_stock.rsi_df)
+    chart_rsi('RSI', my_stock.rsi_df)
 
