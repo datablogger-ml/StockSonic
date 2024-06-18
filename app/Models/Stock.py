@@ -31,7 +31,7 @@ class Stock:
         The RSI is a momentum oscillator that measures the speed and change of price movements.
         It is used to identify overbought and oversold conditions in the market.
 
-        :param timeframe: The number of periods to use for the RSI calculation.
+        :param timeframe: The number of periods to use for the RSI calculation. Default is 14.
         :return:
         """
         rsi_signal_df = self.ohlc_df.copy(deep=True)
