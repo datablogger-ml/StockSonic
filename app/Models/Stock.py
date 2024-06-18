@@ -1,5 +1,4 @@
 import yfinance as yf
-import matplotlib.pyplot as plt
 
 
 class Stock:
@@ -49,23 +48,3 @@ class Stock:
         rsi_signal_df["RSI"] = 100 - (100 / (1 + rsi_signal_df["RELATIVE_STRENGTH"]))
         self.rsi_df = rsi_signal_df.copy(deep=True)
 
-    def chart_rsi(self, title, df):
-        """
-
-        :param title:
-        :param df:
-        :return:
-        """
-        plt.figure()
-        fig, ax = plt.subplots()
-        ax.set_title(title)
-        fig.subplots_adjust(bottom=0.2)
-        ax.plot(df['Date'], df['RSI'])
-        ax.set_ylim(0, 100)
-        ax.axhline(y=70, color='r', linestyle='-')
-        ax.axhline(y=30, color='r', linestyle='-')
-        ax.grid(True)
-        ax.set_ylabel(r'RSI')
-        for label in ax.get_xticklabels(which='major'):
-            label.set(rotation=30, horizontalalignment='right')
-        plt.show()
