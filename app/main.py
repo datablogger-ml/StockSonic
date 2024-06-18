@@ -26,5 +26,10 @@ if __name__ == "__main__":
     my_stock.create_rsi_signals(rsi_timeframe)
     print(my_stock.rsi_df)
     # Charting RSI
-    chart_rsi('RSI', my_stock.rsi_df)
+    # chart_rsi('RSI', my_stock.rsi_df)
 
+    my_stock.create_buy_sell_signal_rsi(rsi_upper_cap, rsi_lower_cap)
+    print(my_stock.rsi_signal)
+    my_stock.calculate_rsi_trade(10_000, 30)
+    # print(my_stock.shares_held)
+    # print(my_stock.total_loss_or_gain)
