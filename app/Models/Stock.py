@@ -7,6 +7,7 @@ class Stock:
         This class is used to fetch stock data from Yahoo Finance API
         :param stock_name: The name of the stock
         """
+        self.rsi_signal = None
         self.rsi_df = None
         self.ohlc_df = None
         self.stock_name = stock_name
@@ -51,4 +52,17 @@ class Stock:
         # Calculating RSI signal
         rsi_signal_df["RSI"] = 100 - (100 / (1 + rsi_signal_df["RELATIVE_STRENGTH"]))
         self.rsi_df = rsi_signal_df.copy(deep=True)
+
+    def create_buy_sell_signal_rsi(self, upper_level=70, lower_level=30):
+        """
+        Calculate the buy and sell signals based on the RSI column.
+
+        :param upper_level: The upper level of RSI to trigger a sell signal. Default is 70.
+        :param lower_level: The lower level of RSI to trigger a buy signal. Default is 30.
+        :return: A DataFrame with the buy and sell signals.
+        """
+        signals_df = self.rsi_df.copy(deep=True)
+        signals_df['BUY_SIGNAL'] = np.where(signals_df['RSI'] < lower_level, 1, 0)
+        signals_df['SELL_SIGNAL'] = np.where(signals_df['RSI'] > upper_level, -1, 0)
+        self.rsi_signal = signals_df
 
